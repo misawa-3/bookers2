@@ -1,2 +1,41 @@
-<h1>Books#show</h1>
-<p>Find me in app/views/books/show.html.erb</p>
+  <div class="container px-5 px-sm-0">
+    <div class="row">
+      <%= render 'users/inf', user: @user %>
+      <%= render 'sideber', book: @new_book %>
+      <div class="col-md-8 offset-md-1">
+        <h2>Book detail</h2>
+        <table class="table">
+          <tbody>
+            <tr>
+              <td>
+                <%= link_to user_path(@user) do %>
+                  <%= image_tag @user.get_profile_image(80, 80) %><br>
+                  <%= @user.name %>
+                <% end %>
+              </td>
+              <td>
+                <%= link_to @book.title, book_path(@book) %>
+              </td>
+              <td>
+                <%= @book.body %>
+              </td>
+              <td>
+                <% if @book.user == current_user %>
+                  <div class="actions">
+                    <%= link_to "Edit", edit_book_path(@book), class: "btn btn-sm btn-success" %>
+                  </div>
+                <% end %>
+              </td>
+              <td>
+                <% if @book.user == current_user %>
+                  <div class="actions">
+                    <%= link_to "Destroy", book_path(@book), method: :delete, data: { confirm: "本当に消しますか？" }, class: "btn btn-sm btn-danger" %>
+                  </div>
+                <% end %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>

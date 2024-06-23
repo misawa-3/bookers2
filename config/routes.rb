@@ -1,11 +1,16 @@
 Rails.application.routes.draw do
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
+  }
 
-  devise_for :users
   root 'homes#top'
-  get "/homes/about" => "homes#about", as: "about"
 
-  resources :books, only: [:new, :create, :index, :show, :destroy]
+  get '/homes/top', to: 'homes#top', as: 'top'
+  get '/home/about', to: 'homes#about', as: 'about'
+  
+  resources :books
 
-  resources :users, only: [:show, :edit, :update]
+  resources :users
 
 end
